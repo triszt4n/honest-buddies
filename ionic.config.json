@@ -1,0 +1,7 @@
+{
+  "name": "honest-buddies",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
