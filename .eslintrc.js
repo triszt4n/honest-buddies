@@ -16,6 +16,12 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'vue/no-deprecated-slot-attribute': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    'semi': ['warn', 'never'],
+    'quotes': ['warn', 'single'],
+    'indent': ['error', 2],
+    'linebreak-style': ['warn', 'unix'],
+    'comma-dangle': ['warn', 'never'],
+    'max-len': ['warn', { 'code': 125 }]
   },
   overrides: [
     {

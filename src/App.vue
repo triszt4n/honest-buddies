@@ -1,27 +1,19 @@
 <template>
   <IonApp>
     <IonSplitPane content-id="main-content">
-      <ion-menu content-id="main-content" type="overlay">
+      <ion-menu content-id="main-content" type="push">
         <ion-content>
           <ion-list id="inbox-list">
             <ion-list-header>Inbox</ion-list-header>
             <ion-note>hi@ionicframework.com</ion-note>
   
             <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages" :key="i">
-              <ion-item @click="selectedIndex = i" router-direction="root" :router-link="p.url" lines="none" detail="false" class="hydrated" :class="{ selected: selectedIndex === i }">
-                <ion-icon slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>
+              <ion-item @click="selectedIndex = i" router-direction="root" :router-link="p.url" 
+                lines="none" detail="false" class="hydrated" :class="{ selected: selectedIndex === i }">
+                <ion-icon style="padding-right: 2rem;" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>
                 <ion-label>{{ p.title }}</ion-label>
               </ion-item>
             </ion-menu-toggle>
-          </ion-list>
-  
-          <ion-list id="labels-list">
-            <ion-list-header>Labels</ion-list-header>
-  
-            <ion-item v-for="(label, index) in labels" lines="none" :key="index">
-              <ion-icon slot="start" :ios="bookmarkOutline" :md="bookmarkSharp"></ion-icon>
-              <ion-label>{{ label }}</ion-label>
-            </ion-item>
           </ion-list>
         </ion-content>
       </ion-menu>
@@ -31,10 +23,16 @@
 </template>
 
 <script lang="ts">
-import { IonApp, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonRouterOutlet, IonSplitPane } from '@ionic/vue';
-import { defineComponent, ref } from 'vue';
-import { useRoute } from 'vue-router';
-import { archiveOutline, archiveSharp, bookmarkOutline, bookmarkSharp, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
+import { IonApp, IonContent, IonIcon, IonItem, IonLabel, IonList,
+  IonListHeader, IonMenu, IonMenuToggle, IonNote, 
+  IonRouterOutlet, IonSplitPane } from '@ionic/vue'
+
+import { defineComponent, ref } from 'vue'
+import { useRoute } from 'vue-router'
+
+import { archiveOutline, archiveSharp, bookmarkOutline, bookmarkSharp, 
+  heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp,
+  trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons'
 
 export default defineComponent({
   name: 'App',
@@ -50,10 +48,10 @@ export default defineComponent({
     IonMenuToggle, 
     IonNote, 
     IonRouterOutlet, 
-    IonSplitPane,
+    IonSplitPane
   },
   setup() {
-    const selectedIndex = ref(0);
+    const selectedIndex = ref(0)
     const appPages = [
       {
         title: 'Inbox',
@@ -91,15 +89,15 @@ export default defineComponent({
         iosIcon: warningOutline,
         mdIcon: warningSharp
       }
-    ];
-    const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+    ]
+    const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders']
     
-    const path = window.location.pathname.split('folder/')[1];
+    const path = window.location.pathname.split('folder/')[1]
     if (path !== undefined) {
-      selectedIndex.value = appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
+      selectedIndex.value = appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase())
     }
     
-    const route = useRoute();
+    const route = useRoute()
     
     return { 
       selectedIndex,
@@ -122,7 +120,7 @@ export default defineComponent({
       isSelected: (url: string) => url === route.path ? 'selected' : ''
     }
   }
-});
+})
 </script>
 
 <style scoped>

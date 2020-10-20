@@ -2,10 +2,10 @@
   <ion-page>
     <ion-header :translucent="true">
       <ion-toolbar>
-        <ion-buttons slot="start">
+        <ion-buttons>
           <ion-menu-button></ion-menu-button>
+          <ion-title>{{ folder }}</ion-title>
         </ion-buttons>
-        <ion-title>{{ folder }}</ion-title>
       </ion-toolbar>
     </ion-header>
     
@@ -18,16 +18,17 @@
     
       <div id="container">
         <strong class="capitalize">{{ folder }}</strong>
-        <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+        <p>Explore <a target="_blank" rel="noopener noreferrer" 
+          href="https://ionicframework.com/docs/components">UI Components</a></p>
       </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
-import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
-import { useRoute } from 'vue-router';
-import { ref, computed, watch } from 'vue';
+import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
+import { useRoute } from 'vue-router'
+import { ref, computed, watch } from 'vue'
 
 export default {
   name: 'Folder',
@@ -38,15 +39,15 @@ export default {
     IonMenuButton,
     IonPage,
     IonTitle,
-    IonToolbar,
+    IonToolbar
   },
   setup() {
-    const route = useRoute();
-    const folder = ref(route.params.id || 'Inbox');
-    const matchedFolder = computed(() => route.params.id);
+    const route = useRoute()
+    const folder = ref(route.params.id || 'Inbox')
+    const matchedFolder = computed(() => route.params.id)
     
     watch(matchedFolder, () => {
-      folder.value = matchedFolder.value as string;
+      folder.value = matchedFolder.value as string
     })
     
     return { folder }
