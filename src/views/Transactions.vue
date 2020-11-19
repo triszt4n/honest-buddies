@@ -4,7 +4,7 @@
       <ion-toolbar>
         <ion-buttons>
           <ion-menu-button></ion-menu-button>
-          <ion-title>{{ folder }}</ion-title>
+          <ion-title>{{ pageName }}</ion-title>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
@@ -12,12 +12,12 @@
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">{{ folder }}</ion-title>
+          <ion-title size="large">{{ pageName }}</ion-title>
         </ion-toolbar>
       </ion-header>
     
       <div id="container">
-        <strong class="capitalize">{{ folder }}</strong>
+        <strong class="capitalize">{{ pageName }}</strong>
         <p>Explore <a target="_blank" rel="noopener noreferrer" 
           href="https://ionicframework.com/docs/components">UI Components</a></p>
       </div>
@@ -28,10 +28,9 @@
 <script lang="ts">
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue'
 import { useRoute } from 'vue-router'
-import { ref, computed, watch } from 'vue'
 
 export default {
-  name: 'Folder',
+  name: 'pageName',
   components: {
     IonButtons,
     IonContent,
@@ -43,14 +42,9 @@ export default {
   },
   setup() {
     const route = useRoute()
-    const folder = ref(route.params.id || 'Inbox')
-    const matchedFolder = computed(() => route.params.id)
+    const pageName = route.path === '/archived'? 'Archived' : 'All Transactions'
     
-    watch(matchedFolder, () => {
-      folder.value = matchedFolder.value as string
-    })
-    
-    return { folder }
+    return { pageName }
   }
 }
 </script>

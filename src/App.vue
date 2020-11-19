@@ -4,13 +4,13 @@
       <ion-menu content-id="main-content" type="push">
         <ion-content>
           <ion-list id="inbox-list">
-            <ion-list-header>Inbox</ion-list-header>
+            <ion-list-header>Hi, InsertName</ion-list-header>
             <ion-note>hi@ionicframework.com</ion-note>
   
             <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages" :key="i">
               <ion-item @click="selectedIndex = i" router-direction="root" :router-link="p.url" 
                 lines="none" detail="false" class="hydrated" :class="{ selected: selectedIndex === i }">
-                <ion-icon style="padding-right: 2rem;" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>
+                <ion-icon style="padding-right: 2rem;" :md="p.icon"></ion-icon>
                 <ion-label>{{ p.title }}</ion-label>
               </ion-item>
             </ion-menu-toggle>
@@ -30,9 +30,7 @@ import { IonApp, IonContent, IonIcon, IonItem, IonLabel, IonList,
 import { defineComponent, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { archiveOutline, archiveSharp, bookmarkOutline, bookmarkSharp, 
-  heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp,
-  trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons'
+import { homeOutline, cardOutline, peopleOutline, archiveOutline } from 'ionicons/icons'
 
 export default defineComponent({
   name: 'App',
@@ -54,45 +52,28 @@ export default defineComponent({
     const selectedIndex = ref(0)
     const appPages = [
       {
-        title: 'Inbox',
-        url: '/folder/Inbox',
-        iosIcon: mailOutline,
-        mdIcon: mailSharp
+        title: 'Overview',
+        url: '/overview',
+        icon: homeOutline
       },
       {
-        title: 'Outbox',
-        url: '/folder/Outbox',
-        iosIcon: paperPlaneOutline,
-        mdIcon: paperPlaneSharp
+        title: 'All Transactions',
+        url: '/transactions',
+        icon: cardOutline
       },
       {
-        title: 'Favorites',
-        url: '/folder/Favorites',
-        iosIcon: heartOutline,
-        mdIcon: heartSharp
+        title: 'Users',
+        url: '/users',
+        icon: peopleOutline
       },
       {
         title: 'Archived',
-        url: '/folder/Archived',
-        iosIcon: archiveOutline,
-        mdIcon: archiveSharp
-      },
-      {
-        title: 'Trash',
-        url: '/folder/Trash',
-        iosIcon: trashOutline,
-        mdIcon: trashSharp
-      },
-      {
-        title: 'Spam',
-        url: '/folder/Spam',
-        iosIcon: warningOutline,
-        mdIcon: warningSharp
+        url: '/archived',
+        icon: archiveOutline
       }
     ]
-    const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders']
     
-    const path = window.location.pathname.split('folder/')[1]
+    const path = window.location.pathname //this needs work (split?)
     if (path !== undefined) {
       selectedIndex.value = appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase())
     }
@@ -101,22 +82,11 @@ export default defineComponent({
     
     return { 
       selectedIndex,
-      appPages, 
-      labels,
+      appPages,
       archiveOutline, 
-      archiveSharp, 
-      bookmarkOutline, 
-      bookmarkSharp, 
-      heartOutline, 
-      heartSharp, 
-      mailOutline, 
-      mailSharp, 
-      paperPlaneOutline, 
-      paperPlaneSharp, 
-      trashOutline, 
-      trashSharp, 
-      warningOutline, 
-      warningSharp,
+      homeOutline, 
+      cardOutline, 
+      peopleOutline,
       isSelected: (url: string) => url === route.path ? 'selected' : ''
     }
   }
